@@ -1,0 +1,11 @@
+pandas
+numpy
+scikit-learn
+xgboost
+optuna
+beautifulsoup4
+requests
+urllib3
+joblib
+streamlit
+pytestpip
