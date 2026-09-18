@@ -1,4 +1,4 @@
-# Used Car Price Intelligence
+# 🚗 Used Car Price Intelligence
 
 <p align="center">
   <img src="https://img.shields.io/badge/Python-3.10%2B-3776AB?style=for-the-badge&logo=python" alt="Python" />
@@ -8,7 +8,7 @@
 
 A machine learning project for estimating fair used-car prices and identifying bargain deals in online listings. The system combines data processing, feature engineering, price prediction, and an interactive Streamlit dashboard for buyer-friendly market valuation.
 
-## Overview
+## 📊 Overview
 
 Used Car Price Intelligence analyzes vehicle attributes such as make, model, year, mileage, engine size, transmission, fuel type, condition, and location to predict a fair market value. It also compares the asking price against the model estimate and flags deals as:
 
@@ -18,7 +18,7 @@ Used Car Price Intelligence analyzes vehicle attributes such as make, model, yea
 
 This project is ideal for used-car marketplaces, price comparison tools, and personal vehicle-value analysis.
 
-## Key Features
+## ✨ Key Features
 
 - Data cleaning and preparation for vehicle listings
 - Feature engineering for age, mileage-per-year, engine size, luxury-brand flag, and automatic transmission flag
@@ -27,7 +27,7 @@ This project is ideal for used-car marketplaces, price comparison tools, and per
 - Streamlit web app for quick interactive valuation
 - Regression-style testing and validation workflow
 
-## Project Structure
+## 🗂️ Project Structure
 
 - `features.py` — feature engineering pipeline for processed listing data
 - `data/raw_car_listings.csv` — raw vehicle listing dataset
@@ -37,7 +37,7 @@ This project is ideal for used-car marketplaces, price comparison tools, and per
 - `models/` — saved trained model and preprocessing objects
 - `tests/` — validation tests for scraper and training flow
 
-## Tech Stack
+## 🧰 Tech Stack
 
 - Python
 - pandas
@@ -47,7 +47,7 @@ This project is ideal for used-car marketplaces, price comparison tools, and per
 - Streamlit
 - pytest
 
-## Getting Started
+## 🚀 Getting Started
 
 ### 1) Clone the repository
 
@@ -98,7 +98,7 @@ Then open the local browser at:
 http://localhost:8501
 ```
 
-## Example Use Case
+## 💡 Example Use Case
 
 A buyer can enter a vehicle's make, model, mileage, age, condition, fuel type, and asking price to see:
 
@@ -106,15 +106,15 @@ A buyer can enter a vehicle's make, model, mileage, age, condition, fuel type, a
 - the gap between asking and predicted value,
 - whether the listing is a bargain or overpriced.
 
-## Notes
+## 📝 Notes
 
 This repository includes a synthetic fallback dataset for demo or placeholder-data environments. For production deployment, it can be extended with a real listing source or marketplace scraper.
 
-## License
+## 📜 License
 
 This project is intended for educational, demonstration, and portfolio use.
 
-## Repository Status
+## ✅ Repository Status
 
 - Model training pipeline included
 - Streamlit UI included
