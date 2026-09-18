@@ -40,7 +40,8 @@ def train_candidate_model(
     data_path="data/processed_car_listings.csv",
     candidate_model_path="models/candidate_car_price_model.pkl",
     preprocessor_path="models/preprocessor.pkl",
-    n_trials=20,
+    n_trials=5,
+    cv_folds=3,
 ):
     # 1. Ensure directories exist
     os.makedirs("models", exist_ok=True)
@@ -78,20 +79,22 @@ def train_candidate_model(
     # 4. Optuna Objective Function
     def objective(trial):
         params = {
-            "n_estimators": trial.suggest_int("n_estimators", 100, 800, step=100),
-            "max_depth": trial.suggest_int("max_depth", 3, 9),
-            "learning_rate": trial.suggest_float("learning_rate", 0.01, 0.2, log=True),
-            "subsample": trial.suggest_float("subsample", 0.6, 1.0),
-            "colsample_bytree": trial.suggest_float("colsample_bytree", 0.6, 1.0),
-            "reg_alpha": trial.suggest_float("reg_alpha", 1e-8, 10.0, log=True),
-            "reg_lambda": trial.suggest_float("reg_lambda", 1e-8, 10.0, log=True),
+            "n_estimators": trial.suggest_int("n_estimators", 150, 500, step=50),
+            "max_depth": trial.suggest_int("max_depth", 3, 7),
+            "learning_rate": trial.suggest_float("learning_rate", 0.03, 0.2, log=True),
+            "subsample": trial.suggest_float("subsample", 0.7, 1.0),
+            "colsample_bytree": trial.suggest_float("colsample_bytree", 0.7, 1.0),
+            "reg_alpha": trial.suggest_float("reg_alpha", 1e-6, 5.0, log=True),
+            "reg_lambda": trial.suggest_float("reg_lambda", 1e-6, 5.0, log=True),
             "random_state": 42,
+            "n_jobs": -1,
+            "tree_method": "hist",
         }
 
         model = XGBRegressor(**params)
-        kf = KFold(n_splits=5, shuffle=True, random_state=42)
+        kf = KFold(n_splits=min(cv_folds, len(df)), shuffle=True, random_state=42)
         scores = cross_val_score(
-            model, X_prep, y, cv=kf, scoring="neg_mean_absolute_error"
+            model, X_prep, y, cv=kf, scoring="neg_mean_absolute_error", n_jobs=1
         )
 
         return -np.mean(scores)
@@ -105,7 +108,12 @@ def train_candidate_model(
     print("Best Parameters:", best_params)
 
     # 5. Train Candidate Model on Full Data
-    final_model = XGBRegressor(**best_params, random_state=42)
+    final_model = XGBRegressor(
+        **best_params,
+        random_state=42,
+        n_jobs=-1,
+        tree_method="hist",
+    )
     final_model.fit(X_prep, y)
 
     # Evaluate on full dataset
