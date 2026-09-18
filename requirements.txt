@@ -7,5 +7,5 @@ beautifulsoup4
 requests
 urllib3
 joblib
-streamlit
-pytestpip
+streamlit>=1.36.0
+pytest>=8.0.0
